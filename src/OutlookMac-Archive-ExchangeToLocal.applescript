@@ -29,7 +29,7 @@ tell application "Microsoft Outlook"
 	-- General	
 	set exchangeAccountDescription to "<exchange account>" -- By default you don't have to change this to your account name as the script will attempt to auto detect the primary account. However, if you have multiple accounts then you set this to the greyed out name of your Exchange Account in the main Outlook window holding all your folders (Inbox etc)
 	set runInSimulationMode to false -- when set to true no mail or calendar events will be archived. It will however create the appropriate folder structures under 'On My Computer' and the candidate items that will be archived will be logged to the events window for you to review. The script can be run repeatedly to test out the effect off different parameters below. You can also optionally delete the empty folders that were created from running in this mode if you want to re-run the simulation
-	set minutesBeforeTimeOut to 2 -- When first running this script against a very large mailbox (one user had 150 000 mails in one folder to archive, for example), it can take the script a long time to build the arrays necessary for calculating the items to be archived. By default AppleScript will timeout quite quickly if it feels an application is taking too long to respond. This timeout value overrides that to allow it handle the long processing times. You can make it longer if you still experience timeouts (CPU dependent).  In extreme large cases an alterntive is to manually drag down mail to your archive and then allow the script to keep the archive up to date from there.
+	set minutesBeforeTimeOut to 3 -- When first running this script against a very large mailbox (one user had 150 000 mails in one folder to archive, for example), it can take the script a long time to build the arrays necessary for calculating the items to be archived. By default AppleScript will timeout quite quickly if it feels an application is taking too long to respond. This timeout value overrides that to allow it handle the long processing times. You can make it longer if you still experience timeouts (CPU dependent).  In extreme large cases an alterntive is to manually drag down mail to your archive and then allow the script to keep the archive up to date from there.
 	set processingDelay to 0.2 -- The number of milliseconds to wait between moving messages on Outlook. On slower machines Outlook can't handle the speed at which the script requests mail to be moved sometimes causing a lock-up. It also makes Outlook more responsive while running in the background. 
 	set doNotArchiveCategoryName to "Do Not Archive" -- If you create an Outlook category that has this exact name (case sensitive) and assign that category to messages or calendar events the archiving process will skip those items indefinitely
 	
@@ -186,7 +186,7 @@ on archiveMail(mailFolder, currentArchiveFolder, earliestDate)
 					end if
 				else
 					log "Folder archive complete"
-					exit repeat
+					-- exit repeat
 				end if
 			end repeat
 		end timeout
